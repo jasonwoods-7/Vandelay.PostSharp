@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Vandelay.PostSharp</RootNamespace>
+    <AssemblyName>Vandelay.PostSharp</AssemblyName>
+    <LangVersion>8.0</LangVersion>
+    <SkipPostSharp>True</SkipPostSharp>
+    <NoWarn>CS0649</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PostSharp.Compiler.Engine" Version="6.6.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\Client.csproj" />
+  </ItemGroup>
+
+</Project>

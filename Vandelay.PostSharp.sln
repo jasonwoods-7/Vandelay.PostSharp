@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weaver", "Weaver\Weaver.csproj", "{4E6E7F45-CC25-482D-B1B4-353513F803E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{8030B52E-C14D-4835-805A-62B851D678CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{832B289B-B7EA-462D-8512-8A936035A103}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E6E7F45-CC25-482D-B1B4-353513F803E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E6E7F45-CC25-482D-B1B4-353513F803E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E6E7F45-CC25-482D-B1B4-353513F803E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E6E7F45-CC25-482D-B1B4-353513F803E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8030B52E-C14D-4835-805A-62B851D678CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8030B52E-C14D-4835-805A-62B851D678CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8030B52E-C14D-4835-805A-62B851D678CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8030B52E-C14D-4835-805A-62B851D678CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{832B289B-B7EA-462D-8512-8A936035A103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{832B289B-B7EA-462D-8512-8A936035A103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{832B289B-B7EA-462D-8512-8A936035A103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{832B289B-B7EA-462D-8512-8A936035A103}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
