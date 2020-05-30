@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using PostSharp.Sdk.CodeModel;
@@ -25,8 +26,15 @@ namespace Vandelay.PostSharp
 
             while (enumerator.MoveNext())
             {
-                var exportType = enumerator.Current!.Value.ConstructorArguments[0].Value;
+                var serializedType = enumerator.Current!.Value.ConstructorArguments[0].Value;
                 //TODO: skip when InheritedExportAttribute is on type
+
+                var exportedType = serializedType.Value switch
+                {
+                    TypeRefDeclaration r => r.GetTypeDefinition(),
+                    TypeDefDeclaration d => d,
+                    _ => throw new InvalidOperationException()
+                };
 
                 var module = Project.Module;
 
@@ -38,12 +46,12 @@ namespace Vandelay.PostSharp
 
                 var export = new CustomAttributeDeclaration(exportAttributeCtor);
                 export.ConstructorArguments.Add(new MemberValuePair(
-                    MemberKind.Parameter, 0, "contractType", exportType));
+                    MemberKind.Parameter, 0, "contractType", serializedType));
 
                 var types = module.Types
                     .OfType<TypeDefDeclaration>()
                     .Where(t => t.IsClass() &&
-                        t.ImplementsInterface((TypeDefDeclaration)exportType.Value));
+                        t.ImplementsInterface(exportedType));
 
                 foreach (var type in types)
                 {

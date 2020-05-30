@@ -3,10 +3,6 @@ using Xunit;
 
 namespace Vandelay.PostSharp.Tests
 {
-    public interface IFoo {}
-
-    public class Foo : IFoo {}
-
     public class UnitTest1
     {
         [Fact]
@@ -15,10 +11,8 @@ namespace Vandelay.PostSharp.Tests
             // Arrange
 
             // Act
-            var foos = Import.Many<IFoo>("");
 
             // Assert
-            foos.Should().NotBeNullOrEmpty();
         }
     }
 }

@@ -12,15 +12,23 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="PostSharp" Version="6.6.8" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="coverlet.collector" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\Client.csproj" />
-    <ProjectReference Include="..\Weaver\Weaver.csproj" />
+    <Compile Remove="AssemblyToProcess\**" />
+    <EmbeddedResource Remove="AssemblyToProcess\**" />
+    <None Remove="AssemblyToProcess\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="AssemblyToProcess\Core\AssemblyToProcess.Core.csproj" />
+    <ProjectReference Include="AssemblyToProcess\MultipleExports\AssemblyToProcess.MultipleExports.csproj" />
+    <ProjectReference Include="AssemblyToProcess\Signed\AssemblyToProcess.Signed.csproj" />
+    <ProjectReference Include="AssemblyToProcess\SimpleCase\AssemblyToProcess.SimpleCase.csproj" />
+    <ProjectReference Include="AssemblyToProcess\Unsigned\AssemblyToProcess.Unsigned.csproj" />
   </ItemGroup>
 
 </Project>

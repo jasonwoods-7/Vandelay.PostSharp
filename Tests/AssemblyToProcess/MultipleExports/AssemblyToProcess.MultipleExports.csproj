@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PostSharpSearchPath>..\..\..\Weaver\bin\$(Configuration)\netstandard2.0</PostSharpSearchPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Client\Client.csproj" />
+    <ProjectReference Include="..\..\..\Weaver\Weaver.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PostSharp" Version="6.6.8" />
+  </ItemGroup>
+</Project>
