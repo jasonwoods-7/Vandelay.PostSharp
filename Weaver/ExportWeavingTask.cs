@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.Composition;
-using System.Diagnostics;
+﻿using System.ComponentModel.Composition;
 using System.Linq;
+using JetBrains.Annotations;
 using PostSharp.Sdk.CodeModel;
 using PostSharp.Sdk.Extensibility;
 using PostSharp.Sdk.Extensibility.Tasks;
@@ -10,6 +9,7 @@ using Vandelay.PostSharp.Extensions;
 namespace Vandelay.PostSharp
 {
     [ExportTask(Phase = TaskPhase.CustomTransform, TaskName = nameof(ExportWeavingTask))]
+    [UsedImplicitly]
     public class ExportWeavingTask : Task
     {
         [ImportService]
@@ -17,24 +17,20 @@ namespace Vandelay.PostSharp
 
         public override bool Execute()
         {
-            if (!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
-
             var enumerator = _annotationRepositoryService.GetAnnotationsOfType(typeof(ExporterAttribute), false, false);
 
             while (enumerator.MoveNext())
             {
                 var serializedType = enumerator.Current!.Value.ConstructorArguments[0].Value;
-                //TODO: skip when InheritedExportAttribute is on type
 
-                var exportedType = serializedType.Value switch
+                var exportedType = serializedType.Value.GetTypeDefinition();
+
+                if (exportedType.CustomAttributes.Any(a =>
+                    a.Constructor.Parent.GetTypeDefinition().Name == typeof(InheritedExportAttribute).FullName &&
+                    a.ConstructorArguments.Count == 0))
                 {
-                    TypeRefDeclaration r => r.GetTypeDefinition(),
-                    TypeDefDeclaration d => d,
-                    _ => throw new InvalidOperationException()
-                };
+                    continue;
+                }
 
                 var module = Project.Module;
 
@@ -44,17 +40,21 @@ namespace Vandelay.PostSharp
                     c.Parameters.Count == 1 &&
                     c.Parameters[0].ParameterType.GetReflectionName() == "System.Type");
 
-                var export = new CustomAttributeDeclaration(exportAttributeCtor);
-                export.ConstructorArguments.Add(new MemberValuePair(
-                    MemberKind.Parameter, 0, "contractType", serializedType));
-
                 var types = module.Types
                     .OfType<TypeDefDeclaration>()
-                    .Where(t => t.IsClass() &&
-                        t.ImplementsInterface(exportedType));
+                    .Where(t =>
+                        t.IsClass() &&
+                        !t.IsAbstract() &&
+                        !t.ExportsType(exportedType) &&
+                        (t.ImplementsInterface(exportedType) ||
+                        t.InheritsBase(exportedType)));
 
                 foreach (var type in types)
                 {
+                    var export = new CustomAttributeDeclaration(exportAttributeCtor);
+                    export.ConstructorArguments.Add(new MemberValuePair(
+                        MemberKind.Parameter, 0, "contractType", serializedType));
+
                     type.CustomAttributes.Add(export);
                 }
             }

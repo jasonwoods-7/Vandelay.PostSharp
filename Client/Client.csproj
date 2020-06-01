@@ -6,6 +6,8 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Vandelay</RootNamespace>
     <AssemblyName>Vandelay</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
