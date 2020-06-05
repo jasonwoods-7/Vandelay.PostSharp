@@ -1,6 +1,4 @@
-﻿[assembly: Vandelay.Exporter(typeof(AssemblyToProcess.MultipleExports.IFooExporter))]
-
-namespace AssemblyToProcess.MultipleExports
+﻿namespace AssemblyToProcess.MultipleExports
 {
     public interface IFooExporter
     {
